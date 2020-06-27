@@ -1,4 +1,12 @@
 /*---------------------*/
+/*---VARIABLES---*/
+/*---------------------*/
+:root {
+    --main: #007aff;
+    --dark: #0051aa;
+    --light: #3395ff;
+}
+/*---------------------*/
 /*---GLOBAL---*/
 /*---------------------*/
 * {
@@ -30,6 +38,13 @@ html {
     width: 70%;
     height: 100vh;
 }
+.swiper-pagination .swiper-pagination-bullet{
+    opacity: 1;
+    background-color: #f4f4f4 !important;
+}
+.swiper-pagination .swiper-pagination-bullet-active {
+    background-color: var(--main) !important;
+}
 /*---------------------*/
 /*---HEADER---*/
 /*---------------------*/
@@ -37,4 +52,18 @@ header {
     background: linear-gradient(rgba(10, 8, 11, 0.5), rgba(10, 8, 11, 0.5)), url(imgs/bgimg.jpg);
     height: 100vh;
     background-size: cover;
+    position: relative;
+}
+h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 400%;
+    font-weight: 300;
+    text-align: center;
+}
+.big {
+    font-weight: 900;
+    color: var(--main);
 }
