@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="resources/css/grid.css">
     <link rel="stylesheet" href="resources/css/style.css">
     <title>ERPG Companion</title>
 </head>
@@ -27,50 +28,124 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
-                <div class="swiper-slide" id="merchant-panel">
-                    <h2>Merchant Profession</h2>
-                    <p class="lvl-txt">Merchant level:</p>
-                    <input type="number" placeholder="input your current merchant lvl" id="merchant-lvl" />
-                    <p class="exp-txt">Merchant EXP:</p>
-                    <input type="number" placeholder="input your current merchant exp" id="merchant-exp" />
-                    <p class="rescs-txt">Current Resources</p>
-                    <input type="number" placeholder="input your current log amount" id="merchant-rescs" />
-
-                    <input type="button" name="Merchant Calculate" value="Calculate" class="btn" id="merchant-calc" />
-
-                    <div id="merchant-answer" class="answers"></div>
+                <div class="swiper-slide">
+                    <section id="merchant-panel" class="panel">
+                        <div class="row">
+                            <h2>Merchant Profession</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="lvl-txt">Merchant level:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current merchant lvl" id="merchant-lvl" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="exp-txt">Merchant EXP:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current merchant exp" id="merchant-exp" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="rescs-txt">Current Resources</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current log amount" id="merchant-rescs" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">&nbsp;</div>
+                            <div class="col span-2-of-3"><input type="button" name="Merchant Calculate"
+                                    value="Calculate" class="btn" id="merchant-calc" /></div>
+                        </div>
+                        <div class="row">
+                            <div id="merchant-answer" class="answers"></div>
+                        </div>
+                    </section>
                 </div>
-                <div class="swiper-slide" id="crafter-panel">
-                    <h2>Crafter Profession</h2>
-                    <p class="lvl-txt">Crafter level:</p>
-                    <input type="number" placeholder="input your current crafter level" id="crafter-lvl" />
-                    <p class="exp-txt">Crafter EXP:</p>
-                    <input type="number" placeholder="input your current crafter EXP" id="crafter-exp" />
-                    <p class="rescs-txt">Current resources:</p>
-                    <input type="number" placeholder="input your current log amount" id="crafter-rescs" />
+                <div class="swiper-slide">
+                    <section id="crafter-panel" class="panel">
+                        <div class="row">
+                            <h2>Crafter Profession</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="lvl-txt">Crafter level:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current crafter level" id="crafter-lvl" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="exp-txt">Crafter EXP:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current crafter EXP" id="crafter-exp" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="rescs-txt">Current resources:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current log amount" id="crafter-rescs" /></div>
+                        </div>
 
-                    <input type="button" name="Crafter Calculate" value="Calculate" class="btn" id="crafter-calc" />
+                        <div class="row">
+                            <div class="col span-1-of-3">&nbsp;</div>
+                            <div class="col span-2-of-3"><input type="button" name="Crafter Calculate" value="Calculate"
+                                    class="btn" id="crafter-calc" />
+                            </div>
+                        </div>
 
-                    <div id="crafter-answer" class="answers"></div>
+                        <div class="row">
+                            <div id="crafter-answer" class="answers"></div>
+                        </div>
+                    </section>
                 </div>
-                <div class="swiper-slide" id="worker-panel">
-                    <h2>Worker Profession</h2>
-                    <p class="lvl-txt">Worker level:</p>
-                    <input type="number" placeholder="input your current worker lvl" id="worker-lvl" />
-                    <p class="exp-txt">Worker EXP:</p>
-                    <input type="number" placeholder="input your current worker EXP" id="worker-exp" />
-                    <p class="rescs-txt">Current Resources:</p>
-                    <input type="number" placeholder="input your current log amount" id="worker-rescs" />
+                <div class="swiper-slide">
+                    <section id="worker-panel" class="panel">
+                        <div class="row">
+                            <h2>Worker Profession</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="lvl-txt">Worker level:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current worker lvl" id="worker-lvl" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="exp-txt">Worker EXP:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current worker EXP" id="worker-exp" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <p class="rescs-txt">Current Resources:</p>
+                            </div>
+                            <div class="col span-2-of-3"><input type="number"
+                                    placeholder="input your current log amount" id="worker-rescs" /></div>
+                        </div>
 
-                    <input type="button" name="Worker Calculate" value="Calculate" class="btn" id="worker-calc" />
-
-                    <div id="worker-answer" class="answers"></div>
+                        <div class="row">
+                            <div class="col span-1-of-3">&nbsp;</div>
+                            <div class="col span-2-of-3"><input type="button" name="Worker Calculate" value="Calculate"
+                                    class="btn" id="worker-calc" /></div>
+                        </div>
+                        <div class="row">
+                            <div id="worker-answer" class="answers"></div>
+                        </div>
+                    </section>
                 </div>
             </div>
-            <!-- If we need pagination -->
+            <!-- pagination -->
             <div class="swiper-pagination"></div>
 
-            <!-- If we need navigation buttons -->
+            <!-- navigation buttons -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
