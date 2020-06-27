@@ -17,6 +17,9 @@
 *:focus{
     outline: none;   
    }
+::-webkit-scrollbar {
+    width: 0px;
+}
 html {
     background-color: #0a080b;
     color: #f4f4f4;
@@ -31,7 +34,6 @@ html {
     display: table;
     clear: both;
 }
-
 /*---------------------*/
 /*---SWIPER---*/
 /*---------------------*/
@@ -67,7 +69,7 @@ h1 {
 }
 .big {
     font-weight: 900;
-    color: var(--main);
+    color: var(--light);
 }
 #click-me {
     text-align: center;
@@ -91,4 +93,63 @@ h1 {
 #click-me a:focus,
 #click-me a:active {
     color: var(--light);
+}
+/*---------------------*/
+/*---PANELS---*/
+/*---------------------*/
+.panel {
+    width: 70%;
+    margin: auto;
+}
+.panel h2 {
+    font-size: 300%;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    font-weight: 300;
+}
+.lvl-txt,
+.exp-txt,
+.resources-txt {
+    vertical-align: middle;
+    margin: 20px;
+    padding: 5px;
+    font-size: 120%;
+    font-weight: 300;
+}
+.input-field{
+    width: 100%;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f4f4f4;
+    font-size: 90%;
+    text-transform: capitalize;
+    text-align: center;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: border 0.5s;
+}
+.input-field:active,
+.input-field:focus {
+    border: 2px solid var(--light);
+}
+.btn {
+    padding: 20px 50px;
+    margin: 10px;
+    font-size: 90%;
+    background-color: var(--main);
+    border: 0;
+    color: #f4f4f4;
+    border-radius: 5px;
+    transition: background-color 0.5s;
+}
+.btn:hover{
+    background-color: var(--dark);
+}
+.answers {
+    text-align: center;
+    font-size: 120%;
+    margin-top: 30px;
 }
