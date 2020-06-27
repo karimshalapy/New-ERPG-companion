@@ -14,9 +14,15 @@
     <header>
         <div class="container" id="welcome">
             <h1>Welcome to <br><span class="big">ERPG Companion</span></h1>
+            <div id="click-me">
+                <a href="index.html#main">
+                    <p>Click here to start!</p>
+                    <i class="fas fa-angle-double-down fa-2x"></i>
+                </a>
+            </div>
         </div>
     </header>
-    <section class="main">
+    <section id="main">
         <div class="swiper-container">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
@@ -33,7 +39,7 @@
             <div class="swiper-button-next"></div>
         </div>
     </section>
-
+    <script src="https://kit.fontawesome.com/96b8508211.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/js/swiper.js"></script>
     <script>
         var mySwiper = new Swiper('.swiper-container', {

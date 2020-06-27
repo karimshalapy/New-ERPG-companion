@@ -24,6 +24,7 @@ html {
     font-weight: 400;
     font-size: 20px;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
 }
 .clearfix:after {
     content: "";
@@ -66,4 +67,27 @@ h1 {
 .big {
     font-weight: 900;
     color: var(--main);
+}
+#click-me {
+    text-align: center;
+    text-transform: capitalize;
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+    transform: translate(-50%, -6%);
+    transition: transform 0.5s;
+}
+#click-me:hover{
+    transform: translate(-50%, 0);
+}
+#click-me a:link,
+#click-me a:visited {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.5s, transform 0.5s;
+}
+#click-me a:hover,
+#click-me a:focus,
+#click-me a:active {
+    color: var(--light);
 }
