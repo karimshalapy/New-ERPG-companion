@@ -27,9 +27,45 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
-                <div class="swiper-slide" id="merchant-panel"> </div>
-                <div class="swiper-slide" id="crafter-panel"> </div>
-                <div class="swiper-slide" id="worker-panel"> </div>
+                <div class="swiper-slide" id="merchant-panel">
+                    <h2>Merchant Profession</h2>
+                    <p class="lvl-txt">Merchant level:</p>
+                    <input type="number" placeholder="input your current merchant lvl" id="merchant-lvl" />
+                    <p class="exp-txt">Merchant EXP:</p>
+                    <input type="number" placeholder="input your current merchant exp" id="merchant-exp" />
+                    <p class="rescs-txt">Current Resources</p>
+                    <input type="number" placeholder="input your current log amount" id="merchant-rescs" />
+
+                    <input type="button" name="Merchant Calculate" value="Calculate" class="btn" id="merchant-calc" />
+
+                    <div id="merchant-answer" class="answers"></div>
+                </div>
+                <div class="swiper-slide" id="crafter-panel">
+                    <h2>Crafter Profession</h2>
+                    <p class="lvl-txt">Crafter level:</p>
+                    <input type="number" placeholder="input your current crafter level" id="crafter-lvl" />
+                    <p class="exp-txt">Crafter EXP:</p>
+                    <input type="number" placeholder="input your current crafter EXP" id="crafter-exp" />
+                    <p class="rescs-txt">Current resources:</p>
+                    <input type="number" placeholder="input your current log amount" id="crafter-rescs" />
+
+                    <input type="button" name="Crafter Calculate" value="Calculate" class="btn" id="crafter-calc" />
+
+                    <div id="crafter-answer" class="answers"></div>
+                </div>
+                <div class="swiper-slide" id="worker-panel">
+                    <h2>Worker Profession</h2>
+                    <p class="lvl-txt">Worker level:</p>
+                    <input type="number" placeholder="input your current worker lvl" id="worker-lvl" />
+                    <p class="exp-txt">Worker EXP:</p>
+                    <input type="number" placeholder="input your current worker EXP" id="worker-exp" />
+                    <p class="rescs-txt">Current Resources:</p>
+                    <input type="number" placeholder="input your current log amount" id="worker-rescs" />
+
+                    <input type="button" name="Worker Calculate" value="Calculate" class="btn" id="worker-calc" />
+
+                    <div id="worker-answer" class="answers"></div>
+                </div>
             </div>
             <!-- If we need pagination -->
             <div class="swiper-pagination"></div>
