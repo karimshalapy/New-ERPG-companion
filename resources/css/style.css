@@ -54,6 +54,7 @@ header {
     height: 100vh;
     background-size: cover;
     position: relative;
+    background-attachment: fixed;
 }
 h1 {
     position: absolute;
