@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <title>ERPG Companion</title>
+</head>
+
+<body>
+    <header>
+        <div class="container" id="welcome">
+            <h1>Welcome to <span class="big">ERPG Companion</span></h1>
+        </div>
+    </header>
+    <section class="main">
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide" id="merchant-panel"> </div>
+                <div class="swiper-slide" id="crafter-panel"> </div>
+                <div class="swiper-slide" id="worker-panel"> </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: false,
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        })
+    </script>
+</body>
+
+
+</html>
