@@ -24,8 +24,8 @@ html {
     background-color: #0a080b;
     color: #f4f4f4;
     font-family: 'Lato', 'Arial', sans-serif;
-    font-weight: 400;
-    font-size: 20px;
+    font-weight: 300;
+    font-size: 15px;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
 }
@@ -104,30 +104,30 @@ h1 {
 .panel h2 {
     font-size: 300%;
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 75px;
+    margin-bottom: 75px;
     font-weight: 300;
 }
 .lvl-txt,
 .exp-txt,
 .resources-txt {
     vertical-align: middle;
-    margin: 20px;
-    padding: 5px;
+    margin: 15px;
+    padding: 3.75px;
     font-size: 120%;
     font-weight: 300;
 }
 .input-field{
     width: 100%;
-    padding: 20px;
-    margin: 10px;
+    padding: 15px;
+    margin: 7.5px;
     background-color: #f4f4f4;
     font-size: 90%;
     text-transform: capitalize;
     text-align: center;
     box-sizing: border-box;
     border: none;
-    border-radius: 5px;
+    border-radius: 3.75px;
     border: 2px solid transparent;
     transition: border 0.5s;
 }
@@ -136,13 +136,13 @@ h1 {
     border: 2px solid var(--light);
 }
 .btn {
-    padding: 20px 50px;
-    margin: 10px;
+    padding: 15px 37.5px;
+    margin: 7.5px;
     font-size: 90%;
     background-color: var(--main);
     border: 0;
     color: #f4f4f4;
-    border-radius: 5px;
+    border-radius: 3.75px;
     transition: background-color 0.5s;
 }
 .btn:hover{
@@ -151,5 +151,5 @@ h1 {
 .answers {
     text-align: center;
     font-size: 120%;
-    margin-top: 30px;
+    margin-top: 22.5px;
 }
