@@ -15,6 +15,12 @@
     }
 }
 @media only screen and (max-width: 767px) {
+    header {
+        background: -o-linear-gradient(rgba(10, 8, 11, 0.5), rgba(10, 8, 11, 0.5)), url(imgs/bgimg-phone.jpg);
+        background: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 8, 11, 0.5)), to(rgba(10, 8, 11, 0.5))), url(imgs/bgimg-phone.jpg);
+        background: linear-gradient(rgba(10, 8, 11, 0.5), rgba(10, 8, 11, 0.5)), url(imgs/bgimg-phone.jpg);
+        background-size: cover;
+    }
     h2 {
         font-size: 250% !important;
         margin-top: 20px !important;
