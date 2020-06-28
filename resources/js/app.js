@@ -7,9 +7,9 @@ var Calculation = (function () {
         this.exp = exp;
         this.maxExp = maxExp;
     };
-    var merchantAns = new Answers(0, 0, 0);
-    var workerAns = new Answers(0, 0, 0);
-    var crafterAns = new Answers(0, 0, 0);
+    var merchantAns = new Answers(NaN, NaN, NaN);
+    var workerAns = new Answers(NaN, NaN, NaN);
+    var crafterAns = new Answers(NaN, NaN, NaN);
 
     var merchantEq = function (i) {
         var merchantReqEXP =
@@ -40,13 +40,20 @@ var Calculation = (function () {
             merchantAns.exp = Math.floor(remainginExp);
             merchantAns.maxExp = Math.floor(merchantEq(lvl));
         },
+        getAnswers: function () {
+            return {
+                merchant: merchantAns,
+                worker: workerAns,
+                crafter: crafterAns,
+            };
+        },
     };
 
 })();
 /********************************************************************************/
 /********************************UI CONTROL MODULE*******************************/
 /********************************************************************************/
-var UIController = (function () {
+var UIController = (function (calcs) {
     var DOMStrings;
     DOMStrings = {
         merchantLvl: "merchant-lvl",
@@ -64,7 +71,8 @@ var UIController = (function () {
         workerResources: "worker-resources",
         workerBtn: "worker-calc",
         workerAns: "worker-answer",
-        mainPanel: "main"
+        mainPanel: "main",
+        type: ["merchant", "crafter", "worker"],
     };
     //Disable scroll
     // left: 37, up: 38, right: 39, down: 40,
@@ -105,6 +113,20 @@ var UIController = (function () {
                 resources: parseFloat(document.getElementById(DOMStrings[type + "Resources"]).value),
             };
         },
+        displayAns: function (type, input) {
+            var answers = calcs.getAnswers();
+            if (input.lvl > 0 && input.resources > 0 && input.lvl < 100) {
+                if (answers[type].lvl === 100) {
+                    if (type === DOMStrings.type[0]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>'
+                    }
+                } else {
+                    document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>'
+                }
+            } else {
+                document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>'
+            };
+        },
         disableScroll: function () {
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
             window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
@@ -118,7 +140,7 @@ var UIController = (function () {
             window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
         }
     }
-})()
+})(Calculation)
 /********************************************************************************/
 /*********************GLOBAL APP CONTROLER MODULE********************************/
 /********************************************************************************/
@@ -126,30 +148,35 @@ var controller = (function (Calcs, UICtrl) {
     var DOMStrings, input;
     DOMStrings = UICtrl.getDOMStrings();
     var setupEventListener = function () {
-        document.getElementById(DOMStrings.mainPanel).addEventListener("click", function (event) {
-            var clicked;
-            clicked = event.target.id;
-            if (clicked === DOMStrings.merchantBtn) {
-                //calc merchant
-                merchantCalculation();
-                //display merchant
+        document.getElementById(DOMStrings.mainPanel).addEventListener("click", calcPrLvl)
+    };
+    var calcPrLvl = function (event) {
+        var clicked, type, input;
+        clicked = event.target.id;
+        type = clicked.split("-")[0];
+        if (clicked === DOMStrings.merchantBtn) {
+            //get input
+            input = UICtrl.getInput(type);
+            //calc merchant
+            Calcs.merchantCalc(input.lvl, input.exp, input.resources);
+            //display merchant
+            UICtrl.displayAns(type, input);
+        } else if (clicked === DOMStrings.workerBtn) {
+            //get input
+            input = UICtrl.getInput(type);
+            //calc worker
 
-            } else if (clicked === DOMStrings.workerBtn) {
-                //calc worker
+            //display worker
+            UICtrl.displayAns(type, input);
+        } else if (clicked === DOMStrings.crafterBtn) {
+            //get input 
+            input = UICtrl.getInput(type);
+            //calc crafter
 
-                //display worker
-            } else if (clicked === DOMStrings.crafterBtn) {
-                //calc crafter
-
-                //display crafter
-            };
-        })
-    }
-    var merchantCalculation = function () {
-        var input = UICtrl.getInput("merchant");
-        Calcs.merchantCalc(input.lvl, input.exp, input.resources);
-    }
-
+            //display crafter
+            UICtrl.displayAns(type, input);
+        };
+    };
     return {
         test: function () {
         },
