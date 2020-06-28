@@ -1,11 +1,15 @@
-//CALCULATION MODULE
+/********************************************************************************/
+/********************************CALCULATION MODULE******************************/
+/********************************************************************************/
 var Calculation = (function () {
     //Profession Constructor
     //Merchant EXP for each level Calc
 
 
 })();
-//UI CONTROL MODULE
+/********************************************************************************/
+/********************************UI CONTROL MODULE*******************************/
+/********************************************************************************/
 var UIController = (function () {
     var DOMStrings;
     DOMStrings = {
@@ -26,6 +30,33 @@ var UIController = (function () {
         workerAns: "worker-answer",
         mainPanel: "main"
     };
+    //Disable scroll
+    // left: 37, up: 38, right: 39, down: 40,
+    // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+    var keys = { 38: 1, 40: 1 };
+
+    function preventDefault(e) {
+        e.preventDefault();
+    }
+
+    function preventDefaultForScrollKeys(e) {
+        if (keys[e.keyCode]) {
+            preventDefault(e);
+            return false;
+        }
+    }
+
+    // modern Chrome requires { passive: false } when adding event
+    var supportsPassive = false;
+    try {
+        window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+            get: function () { supportsPassive = true; }
+        }));
+    } catch (e) { }
+
+    var wheelOpt = supportsPassive ? { passive: false } : false;
+    var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
     //Public functions
     return {
         getDOMStrings: function () {
@@ -38,9 +69,23 @@ var UIController = (function () {
                 resources: parseFloat(document.getElementById(DOMStrings[type + "Resources"]).value),
             };
         },
+        disableScroll: function () {
+            window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+            window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+        },
+        enableScroll: function () {
+            window.removeEventListener('DOMMouseScroll', preventDefault, false);
+            window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+            window.removeEventListener('touchmove', preventDefault, wheelOpt);
+            window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+        }
     }
 })()
-//GLOBAL APP CONTROLER MODULE
+/********************************************************************************/
+/*********************GLOBAL APP CONTROLER MODULE********************************/
+/********************************************************************************/
 var controller = (function (Calcs, UICtrl) {
     var DOMStrings, input;
     DOMStrings = UICtrl.getDOMStrings();
@@ -71,6 +116,7 @@ var controller = (function (Calcs, UICtrl) {
         },
         init: function () {
             console.log("App started...")
+            UICtrl.disableScroll();
             setupEventListener();
         }
     }
