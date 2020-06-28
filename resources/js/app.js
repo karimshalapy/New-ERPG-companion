@@ -2,9 +2,45 @@
 /********************************CALCULATION MODULE******************************/
 /********************************************************************************/
 var Calculation = (function () {
-    //Profession Constructor
-    //Merchant EXP for each level Calc
+    var Answers = function (lvl, exp, maxExp) {
+        this.lvl = lvl;
+        this.exp = exp;
+        this.maxExp = maxExp;
+    };
+    var merchantAns = new Answers(0, 0, 0);
+    var workerAns = new Answers(0, 0, 0);
+    var crafterAns = new Answers(0, 0, 0);
 
+    var merchantEq = function (i) {
+        var merchantReqEXP =
+            3.073809219 * Math.pow(10, -12) * Math.pow(i, 8) -
+            1.382695292 * Math.pow(10, -9) * Math.pow(i, 7) +
+            2.623942521 * Math.pow(10, -7) * Math.pow(i, 6) -
+            2.743200457 * Math.pow(10, -5) * Math.pow(i, 5) +
+            1.739542291 * Math.pow(10, -3) * Math.pow(i, 4) -
+            7.060781121 * Math.pow(10, -2) * Math.pow(i, 3) +
+            2.063734323 * Math.pow(i, 2) +
+            244.2821047 * i -
+            147.8064184;
+        return merchantReqEXP;
+    };
+    //Global functions
+    return {
+        merchantCalc: function (lvl, exp, resources) {
+            var resourcesExp, totalExp, remainginExp;
+            resourcesExp = resources / 5;
+            totalExp = resourcesExp + exp;
+            remainginExp = totalExp - merchantEq(lvl)
+            while (remainginExp > 0 && lvl < 100) {
+                lvl++;
+                remainginExp -= merchantEq(lvl);
+            };
+            remainginExp += merchantEq(lvl);
+            merchantAns.lvl = lvl;
+            merchantAns.exp = Math.floor(remainginExp);
+            merchantAns.maxExp = Math.floor(merchantEq(lvl));
+        },
+    };
 
 })();
 /********************************************************************************/
@@ -91,25 +127,28 @@ var controller = (function (Calcs, UICtrl) {
     DOMStrings = UICtrl.getDOMStrings();
     var setupEventListener = function () {
         document.getElementById(DOMStrings.mainPanel).addEventListener("click", function (event) {
-            var clicked, input, type;
+            var clicked;
             clicked = event.target.id;
-            type = clicked.split("-")[0];
             if (clicked === DOMStrings.merchantBtn) {
-                input = UICtrl.getInput(type);
-                console.log(input);
+                //calc merchant
+                merchantCalculation();
+                //display merchant
+
             } else if (clicked === DOMStrings.workerBtn) {
-                input = UICtrl.getInput(type);
-                console.log(input);
+                //calc worker
+
+                //display worker
             } else if (clicked === DOMStrings.crafterBtn) {
-                input = UICtrl.getInput(type);
-                console.log(input);
+                //calc crafter
+
+                //display crafter
             };
         })
     }
-    //1. get input
-
-    //2. calc values
-    //3. print Ans to UI
+    var merchantCalculation = function () {
+        var input = UICtrl.getInput("merchant");
+        Calcs.merchantCalc(input.lvl, input.exp, input.resources);
+    }
 
     return {
         test: function () {

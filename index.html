@@ -39,7 +39,8 @@
                             <div class="col span-1-of-3">
                                 <p class="lvl-txt">Merchant level:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current merchant lvl" id="merchant-lvl"
                                     class="input-field" /></div>
                         </div>
@@ -47,7 +48,8 @@
                             <div class="col span-1-of-3">
                                 <p class="exp-txt">Merchant EXP:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current merchant exp" id="merchant-exp"
                                     class="input-field" /></div>
                         </div>
@@ -55,7 +57,8 @@
                             <div class="col span-1-of-3">
                                 <p class="resources-txt">Current Resources:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current log amount" id="merchant-resources"
                                     class="input-field" />
                             </div>
@@ -82,7 +85,8 @@
                             <div class="col span-1-of-3">
                                 <p class="lvl-txt">Crafter level:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current crafter level" id="crafter-lvl"
                                     class="input-field" /></div>
                         </div>
@@ -90,7 +94,8 @@
                             <div class="col span-1-of-3">
                                 <p class="exp-txt">Crafter EXP:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current crafter EXP" id="crafter-exp" class="input-field" />
                             </div>
                         </div>
@@ -98,7 +103,8 @@
                             <div class="col span-1-of-3">
                                 <p class="resources-txt">Current resources:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current log amount" id="crafter-resources"
                                     class="input-field" /></div>
                         </div>
@@ -126,7 +132,8 @@
                             <div class="col span-1-of-3">
                                 <p class="lvl-txt">Worker level:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current worker lvl" id="worker-lvl" class="input-field" />
                             </div>
                         </div>
@@ -134,7 +141,8 @@
                             <div class="col span-1-of-3">
                                 <p class="exp-txt">Worker EXP:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current worker EXP" id="worker-exp" class="input-field" />
                             </div>
                         </div>
@@ -142,7 +150,8 @@
                             <div class="col span-1-of-3">
                                 <p class="resources-txt">Current Resources:</p>
                             </div>
-                            <div class="col span-2-of-3"><input type="number"
+                            <div class="col span-2-of-3"><input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                     placeholder="input your current log amount" id="worker-resources"
                                     class="input-field" /></div>
                         </div>
@@ -196,50 +205,6 @@
                 prevEl: '.swiper-button-prev',
             },
         })
-    </script>
-    <script>
-        // left: 37, up: 38, right: 39, down: 40,
-        // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-        var keys = { 38: 1, 40: 1 };
-
-        function preventDefault(e) {
-            e.preventDefault();
-        }
-
-        function preventDefaultForScrollKeys(e) {
-            if (keys[e.keyCode]) {
-                preventDefault(e);
-                return false;
-            }
-        }
-
-        // modern Chrome requires { passive: false } when adding event
-        var supportsPassive = false;
-        try {
-            window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
-                get: function () { supportsPassive = true; }
-            }));
-        } catch (e) { }
-
-        var wheelOpt = supportsPassive ? { passive: false } : false;
-        var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-
-        // call this to Disable
-        function disableScroll() {
-            window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
-            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
-            window.addEventListener('keydown', preventDefaultForScrollKeys, false);
-        }
-
-        // call this to Enable
-        function enableScroll() {
-            window.removeEventListener('DOMMouseScroll', preventDefault, false);
-            window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
-            window.removeEventListener('touchmove', preventDefault, wheelOpt);
-            window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
-        }
-        disableScroll();
     </script>
     <script src="resources/js/app.js"></script>
 </body>
