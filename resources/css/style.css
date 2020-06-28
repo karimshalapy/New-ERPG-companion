@@ -176,6 +176,7 @@ h1 {
     right: 5%;
     transform: translate(0, 5%);
     transition: transform 0.5s;
+    z-index: 999999;
 }
 .go-up-location:hover,
 .go-up-location:active,
