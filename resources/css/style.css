@@ -33,6 +33,7 @@ html {
 }
 #main {
     height: 100%;
+    position: relative;
 }
 .clearfix:after {
     content: "";
@@ -157,4 +158,27 @@ h1 {
     text-align: center;
     font-size: 120%;
     margin-top: 22.5px;
+}
+/*---GO UP BUTTON---*/
+.go-up:link,
+.go-up:visited {
+    color: #555;
+    transition: color 0.5s;
+}
+.go-up:hover,
+.go-up:active,
+.go-up:focus { 
+    color: var(--light);
+}
+.go-up-location {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    transform: translate(0, 5%);
+    transition: transform 0.5s;
+}
+.go-up-location:hover,
+.go-up-location:active,
+.go-up-location:focus {
+    transform: translate(0, 0);
 }
