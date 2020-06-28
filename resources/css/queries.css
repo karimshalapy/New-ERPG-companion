@@ -1,0 +1,45 @@
+@media only screen and (max-width: 1200px) {
+    .swiper-container {
+        width: 80%;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .swiper-container {
+        width: 100%;
+    }
+    .panel {
+        width: 80%;
+    }
+    h1 {
+        font-size: 350% !important;
+    }
+}
+@media only screen and (max-width: 767px) {
+    h2 {
+        font-size: 250% !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    .panel {
+        width: 70%;
+    }
+    .col {
+        float: none;
+    }
+    .lvl-txt,
+    .exp-txt,
+    .resources-txt {
+        font-size: 110%;
+        margin: 7px;
+    }
+    .input-field{
+        font-size: 90%;
+        margin: 5px;
+        padding: 10px;
+
+    } 
+    .span-1-of-3, 
+    .span-2-of-3 {
+        width: 100%;
+    }
+}
