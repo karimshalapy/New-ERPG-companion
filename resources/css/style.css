@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 /*---------------------*/
 /*---VARIABLES---*/
 /*---------------------*/
@@ -12,7 +19,8 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 *:focus{
     outline: none;   
@@ -20,6 +28,7 @@
 ::-webkit-scrollbar {
     width: 0px;
 }
+
 body,
 html {
     background-color: #0a080b;
@@ -30,6 +39,10 @@ html {
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
     height: 100%;
+    scrollbar-width: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 #main {
     height: 100%;
@@ -58,6 +71,8 @@ html {
 /*---HEADER---*/
 /*---------------------*/
 header {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 8, 11, 0.5)), to(rgba(10, 8, 11, 0.5))), url(imgs/bgimg.jpg);
+    background: -o-linear-gradient(rgba(10, 8, 11, 0.5), rgba(10, 8, 11, 0.5)), url(imgs/bgimg.jpg);
     background: linear-gradient(rgba(10, 8, 11, 0.5), rgba(10, 8, 11, 0.5)), url(imgs/bgimg.jpg);
     background-size: cover;
     position: relative;
@@ -68,7 +83,9 @@ h1 {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     font-size: 400%;
     font-weight: 300;
     text-align: center;
@@ -83,17 +100,29 @@ h1 {
     position: absolute;
     left: 50%;
     bottom: 2%;
-    transform: translate(-50%, -6%);
+    -webkit-transform: translate(-50%, -6%);
+        -ms-transform: translate(-50%, -6%);
+            transform: translate(-50%, -6%);
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    -o-transition: transform 0.5s;
     transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s;
 }
 #click-me:hover{
-    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
 }
 #click-me a:link,
 #click-me a:visited {
     text-decoration: none;
     color: #555;
+    -webkit-transition: color 0.5s, -webkit-transform 0.5s;
+    transition: color 0.5s, -webkit-transform 0.5s;
+    -o-transition: color 0.5s, transform 0.5s;
     transition: color 0.5s, transform 0.5s;
+    transition: color 0.5s, transform 0.5s, -webkit-transform 0.5s;
 }
 #click-me a:hover,
 #click-me a:focus,
@@ -131,10 +160,13 @@ h1 {
     font-size: 90%;
     text-transform: capitalize;
     text-align: center;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     border: none;
     border-radius: 3.75px;
     border: 2px solid transparent;
+    -webkit-transition: border 0.5s;
+    -o-transition: border 0.5s;
     transition: border 0.5s;
 }
 .input-field:active,
@@ -149,7 +181,12 @@ h1 {
     border: 0;
     color: #f4f4f4;
     border-radius: 3.75px;
+    -webkit-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
     transition: background-color 0.5s;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
 }
 .btn:hover{
     background-color: var(--dark);
@@ -163,6 +200,8 @@ h1 {
 .go-up:link,
 .go-up:visited {
     color: #555;
+    -webkit-transition: color 0.5s;
+    -o-transition: color 0.5s;
     transition: color 0.5s;
 }
 .go-up:hover,
@@ -174,12 +213,20 @@ h1 {
     position: absolute;
     bottom: 5%;
     right: 5%;
-    transform: translate(0, 5%);
+    -webkit-transform: translate(0, 5%);
+        -ms-transform: translate(0, 5%);
+            transform: translate(0, 5%);
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    -o-transition: transform 0.5s;
     transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s;
     z-index: 999999;
 }
 .go-up-location:hover,
 .go-up-location:active,
 .go-up-location:focus {
-    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
 }
