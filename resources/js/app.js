@@ -73,16 +73,18 @@ var Calculation = (function () {
         },
         crafterCalc: function (lvl, exp, resources) {
             var resourcesExp, maxExpReqForLvl, remainginExpToLvlUp;
-            resourcesExp = crafterEq(resources);
-            maxExpReqForLvl = (lvl * 200) - 100;
-            remainginExpToLvlUp = maxExpReqForLvl - exp;
-            while (resourcesExp >= remainginExpToLvlUp && lvl !== 100) {
-                if (remainginExpToLvlUp < maxExpReqForLvl) {
+            resourcesExp = crafterEq(resources);//392 
+            maxExpReqForLvl = (lvl * 200) - 100; //100 
+            remainginExpToLvlUp = maxExpReqForLvl - exp; //95 
+            while (resourcesExp >= remainginExpToLvlUp && lvl !== 100) { //true
+                if (remainginExpToLvlUp < maxExpReqForLvl) { //true
                     maxExpReqForLvl = lvl * 200 - 100;
                     remainginExpToLvlUp = maxExpReqForLvl - exp;
-                    resourcesExp -= remainginExpToLvlUp;
-                    lvl++;
+                    resourcesExp -= remainginExpToLvlUp; //297
+                    lvl++; //2
                     exp = 0;
+                    maxExpReqForLvl = lvl * 200 - 100;
+                    remainginExpToLvlUp = maxExpReqForLvl - exp;
                 } else {
                     maxExpReqForLvl = lvl * 200 - 100;
                     remainginExpToLvlUp = maxExpReqForLvl - exp;
@@ -90,7 +92,6 @@ var Calculation = (function () {
                     lvl++;
                 }
             }
-            resourcesExp += remainginExpToLvlUp;
             console.log(lvl, resourcesExp, maxExpReqForLvl);
             crafterAns.lvl = lvl;
             crafterAns.exp = resourcesExp;
@@ -188,12 +189,18 @@ var UIController = (function (calcs) {
                     if (type === DOMStrings.type[0]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>';
                     } else if (type === DOMStrings.type[1]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span><p class="sub-text">P.S. this function calculates the exp gained from the raw resources you have and not the 10% crafter proc so you will definitely have higher lvl</p></p>';
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
                     } else if (type === DOMStrings.type[2]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + Math.floor(answers[type].exp * 151.2) + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     }
                 } else {
-                    document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
+                    if (type === DOMStrings.type[1]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from the raw resources you have and not the 10% crafter proc so you will definitely have higher lvl</p>';
+                    } else if (type === DOMStrings.type[2]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
+                    } else if (type === DOMStrings.type[0]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>'
+                    }
                 }
             } else {
                 document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>';
