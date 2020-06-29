@@ -7,8 +7,8 @@ var Calculation = (function () {
         this.exp = exp;
         this.maxExp = maxExp;
     };
-    var merchantAns = new Answers(NaN, NaN, NaN);
-    var workerAns = new Answers(NaN, NaN, NaN);
+    var merchantAns = new Answers(0, 0, 0);
+    var workerAns = new Answers(0, 0, 0);
     var crafterAns = new Answers(NaN, NaN, NaN);
 
     var merchantEq = function (i) {
@@ -24,21 +24,63 @@ var Calculation = (function () {
             147.8064184;
         return merchantReqEXP;
     };
+    var crafterEq = function (logs) {
+        var xp, epic;
+        epic = 0;
+        xp = 0;
+        while (logs >= 25 || epic != 0) {
+            if (logs >= 25) {
+                xp += Math.floor(logs / 25);
+                epic += Math.floor(logs / 25);
+                logs %= 25;
+            } else {
+                logs += epic * 20;
+                xp += epic;
+                epic = 0;
+            }
+        }
+        return xp;
+    };
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
             var resourcesExp, totalExp, remainginExp;
             resourcesExp = resources / 5;
             totalExp = resourcesExp + exp;
-            remainginExp = totalExp - merchantEq(lvl)
+            remainginExp = totalExp - merchantEq(lvl);
             while (remainginExp > 0 && lvl < 100) {
                 lvl++;
                 remainginExp -= merchantEq(lvl);
-            };
+            }
             remainginExp += merchantEq(lvl);
             merchantAns.lvl = lvl;
-            merchantAns.exp = Math.floor(remainginExp);
-            merchantAns.maxExp = Math.floor(merchantEq(lvl));
+            merchantAns.exp = Math.round(remainginExp);
+            merchantAns.maxExp = Math.round(merchantEq(lvl));
+        },
+        crafterCalc: function (lvl, exp, resources) {
+            var resourcesExp, maxExpReqForLvl, remainginExpToLvlUp;
+            resourcesExp = crafterEq(resources);
+            maxExpReqForLvl = (lvl * 200) - 100;
+            remainginExpToLvlUp = maxExpReqForLvl - exp;
+            while (resourcesExp >= remainginExpToLvlUp && lvl !== 100) {
+                if (remainginExpToLvlUp < maxExpReqForLvl) {
+                    maxExpReqForLvl = lvl * 200 - 100;
+                    remainginExpToLvlUp = maxExpReqForLvl - exp;
+                    resourcesExp -= remainginExpToLvlUp;
+                    lvl++;
+                    exp = 0;
+                } else {
+                    maxExpReqForLvl = lvl * 200 - 100;
+                    remainginExpToLvlUp = maxExpReqForLvl - exp;
+                    resourcesExp -= remainginExpToLvlUp;
+                    lvl++;
+                }
+            }
+            resourcesExp += remainginExpToLvlUp;
+            console.log(lvl, resourcesExp, maxExpReqForLvl);
+            crafterAns.lvl = lvl;
+            crafterAns.exp = resourcesExp;
+            crafterAns.maxExp = maxExpReqForLvl;
         },
         getAnswers: function () {
             return {
@@ -104,7 +146,7 @@ var UIController = (function (calcs) {
     //Public functions
     return {
         getDOMStrings: function () {
-            return DOMStrings
+            return DOMStrings;
         },
         getInput: function (type) {
             return {
@@ -118,14 +160,16 @@ var UIController = (function (calcs) {
             if (input.lvl > 0 && input.resources > 0 && input.lvl < 100) {
                 if (answers[type].lvl === 100) {
                     if (type === DOMStrings.type[0]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>'
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>';
+                    } else if (type === DOMStrings.type[1]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
                     }
                 } else {
-                    document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>'
+                    document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
                 }
             } else {
-                document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>'
-            };
+                document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>';
+            }
         },
         disableScroll: function () {
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
@@ -139,16 +183,16 @@ var UIController = (function (calcs) {
             window.removeEventListener('touchmove', preventDefault, wheelOpt);
             window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
         }
-    }
-})(Calculation)
+    };
+})(Calculation);
 /********************************************************************************/
 /*********************GLOBAL APP CONTROLER MODULE********************************/
 /********************************************************************************/
 var controller = (function (Calcs, UICtrl) {
-    var DOMStrings, input;
+    var DOMStrings;
     DOMStrings = UICtrl.getDOMStrings();
     var setupEventListener = function () {
-        document.getElementById(DOMStrings.mainPanel).addEventListener("click", calcPrLvl)
+        document.getElementById(DOMStrings.mainPanel).addEventListener("click", calcPrLvl);
     };
     var calcPrLvl = function (event) {
         var clicked, type, input;
@@ -172,20 +216,18 @@ var controller = (function (Calcs, UICtrl) {
             //get input 
             input = UICtrl.getInput(type);
             //calc crafter
-
+            Calcs.crafterCalc(input.lvl, input.exp, input.resources);
             //display crafter
             UICtrl.displayAns(type, input);
-        };
+        }
     };
     return {
-        test: function () {
-        },
         init: function () {
-            console.log("App started...")
+            console.log("App started...");
             UICtrl.disableScroll();
             setupEventListener();
         }
-    }
+    };
 
 })(Calculation, UIController);
 controller.init();
