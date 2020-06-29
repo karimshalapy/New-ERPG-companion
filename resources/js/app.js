@@ -197,12 +197,21 @@ var UIController = (function (calcs) {
                     } else if (type === DOMStrings.type[2]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     } else if (type === DOMStrings.type[0]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>'
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
                     }
                 }
             } else {
                 document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>';
             }
+        },
+        clearFields: function (type) {
+            var fields, fieldsArr;
+            fields = document.querySelectorAll("#" + DOMStrings[type + "Lvl"] + ", " + "#" + DOMStrings[type + "Exp"] + ", " + "#" + DOMStrings[type + "Resources"]);
+            fieldsArr = Array.from(fields);
+            fieldsArr.forEach(function (current) {
+                current.value = "";
+            });
+            fieldsArr[0].focus();
         },
         disableScroll: function () {
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
@@ -263,6 +272,7 @@ var controller = (function (Calcs, UICtrl) {
             //display crafter
             UICtrl.displayAns(type, input);
         }
+        UICtrl.clearFields(type);
     };
     return {
         init: function () {
