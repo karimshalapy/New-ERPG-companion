@@ -41,6 +41,19 @@ var Calculation = (function () {
         }
         return xp;
     };
+    var workerEq = function (i) {
+        var workerReqEXP =
+            1.076878361 * Math.pow(10, -9) * Math.pow(i, 7) -
+            2.321194444 * Math.pow(10, -12) * Math.pow(i, 8) -
+            2.114897735 * Math.pow(10, -7) * Math.pow(i, 6) +
+            2.296274283 * Math.pow(10, -5) * Math.pow(i, 5) -
+            1.515876881 * Math.pow(10, -3) * Math.pow(i, 4) +
+            6.376572453 * Math.pow(10, -2) * Math.pow(i, 3) -
+            1.83818616 * Math.pow(i, 2) +
+            80.80037472 * i +
+            13.55549276;
+        return workerReqEXP;
+    };
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
@@ -48,6 +61,7 @@ var Calculation = (function () {
             resourcesExp = resources / 5;
             totalExp = resourcesExp + exp;
             remainginExp = totalExp - merchantEq(lvl);
+            console.log(merchantEq(lvl));
             while (remainginExp > 0 && lvl < 100) {
                 lvl++;
                 remainginExp -= merchantEq(lvl);
@@ -81,6 +95,18 @@ var Calculation = (function () {
             crafterAns.lvl = lvl;
             crafterAns.exp = resourcesExp;
             crafterAns.maxExp = maxExpReqForLvl;
+        },
+        workerCalc: function (lvl, exp, resources) {
+            var resourcesExp, totalExp;
+            resourcesExp = resources / 151.2;
+            totalExp = resourcesExp + exp;
+            while (totalExp > workerEq(lvl) && lvl !== 100) {
+                totalExp -= workerEq(lvl);
+                lvl++;
+            }
+            workerAns.lvl = lvl;
+            workerAns.exp = Math.round(totalExp);
+            workerAns.maxExp = Math.round(workerEq(lvl));
         },
         getAnswers: function () {
             return {
@@ -162,7 +188,9 @@ var UIController = (function (calcs) {
                     if (type === DOMStrings.type[0]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>';
                     } else if (type === DOMStrings.type[1]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span><p class="sub-text">P.S. this function calculates the exp gained from the raw resources you have and not the 10% crafter proc so you will definitely have higher lvl</p></p>';
+                    } else if (type === DOMStrings.type[1]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 151.2 + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     }
                 } else {
                     document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
@@ -209,7 +237,7 @@ var controller = (function (Calcs, UICtrl) {
             //get input
             input = UICtrl.getInput(type);
             //calc worker
-
+            Calcs.workerCalc(input.lvl, input.exp, input.resources);
             //display worker
             UICtrl.displayAns(type, input);
         } else if (clicked === DOMStrings.crafterBtn) {
