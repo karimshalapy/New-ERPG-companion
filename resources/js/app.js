@@ -139,6 +139,16 @@ var UIController = (function (calcs) {
         workerBtn: "worker-calc",
         workerAns: "worker-answer",
         mainPanel: "main",
+        merchantOldLvl: "merchant__lvl-old-input",
+        merchantOldExp: "merchant__exp-old-input",
+        merchantOldResources: "merchant__resources-old-input",
+        crafterOldLvl: "crafter__lvl-old-input",
+        crafterOldExp: "crafter__exp-old-input",
+        crafterOldResources: "crafter__resources-old-input",
+        workerOldLvl: "worker__lvl-old-input",
+        workerOldExp: "worker__exp-old-input",
+        workerOldResources: "worker__resources-old-input",
+
         type: ["merchant", "crafter", "worker"],
     };
     //Disable scroll
@@ -200,6 +210,10 @@ var UIController = (function (calcs) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
                     }
                 }
+                //display old input
+                document.getElementById(DOMStrings[type + "OldLvl"]).innerText = "Old Input: " + input.lvl;
+                document.getElementById(DOMStrings[type + "OldExp"]).innerText = "Old Input: " + input.exp;
+                document.getElementById(DOMStrings[type + "OldResources"]).innerText = "Old Input: " + input.resources;
             } else {
                 document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>';
             }
