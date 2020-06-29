@@ -143,6 +143,11 @@ h1 {
     margin-bottom: 75px;
     font-weight: 300;
 }
+.sub-text {
+    color: #555;
+    font-size: 80%;
+    font-weight: 400;
+}
 .lvl-txt,
 .exp-txt,
 .resources-txt {
