@@ -61,7 +61,6 @@ var Calculation = (function () {
             resourcesExp = resources / 5;
             totalExp = resourcesExp + exp;
             remainginExp = totalExp - merchantEq(lvl);
-            console.log(merchantEq(lvl));
             while (remainginExp > 0 && lvl < 100) {
                 lvl++;
                 remainginExp -= merchantEq(lvl);
@@ -92,7 +91,6 @@ var Calculation = (function () {
                     lvl++;
                 }
             }
-            console.log(lvl, resourcesExp, maxExpReqForLvl);
             crafterAns.lvl = lvl;
             crafterAns.exp = resourcesExp;
             crafterAns.maxExp = maxExpReqForLvl;
@@ -227,27 +225,37 @@ var controller = (function (Calcs, UICtrl) {
     var DOMStrings;
     DOMStrings = UICtrl.getDOMStrings();
     var setupEventListener = function () {
-        document.getElementById(DOMStrings.mainPanel).addEventListener("click", calcPrLvl);
+        document.getElementById(DOMStrings.mainPanel).addEventListener("click", function (event) {
+            var clicked = event.target.id;
+            if (clicked === DOMStrings.merchantBtn || clicked === DOMStrings.crafterBtn || clicked === DOMStrings.workerBtn) {
+                calcPrLvl(event);
+            }
+        });
+        document.getElementById(DOMStrings.mainPanel).addEventListener("keypress", function (event) {
+            if (event.which === 13 || event.keyCode === 13) {
+                calcPrLvl(event);
+            }
+        });
     };
     var calcPrLvl = function (event) {
         var clicked, type, input;
         clicked = event.target.id;
         type = clicked.split("-")[0];
-        if (clicked === DOMStrings.merchantBtn) {
+        if (type === DOMStrings.type[0]) {
             //get input
             input = UICtrl.getInput(type);
             //calc merchant
             Calcs.merchantCalc(input.lvl, input.exp, input.resources);
             //display merchant
             UICtrl.displayAns(type, input);
-        } else if (clicked === DOMStrings.workerBtn) {
+        } else if (type === DOMStrings.type[2]) {
             //get input
             input = UICtrl.getInput(type);
             //calc worker
             Calcs.workerCalc(input.lvl, input.exp, input.resources);
             //display worker
             UICtrl.displayAns(type, input);
-        } else if (clicked === DOMStrings.crafterBtn) {
+        } else if (type === DOMStrings.type[1]) {
             //get input 
             input = UICtrl.getInput(type);
             //calc crafter
