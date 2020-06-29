@@ -79,16 +79,18 @@ header {
     background-attachment: fixed;
     min-height: 100%;
 }
-h1 {
+.welcome-centered {
     position: absolute;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
+    text-align: center;
+}
+h1 {
     font-size: 400%;
     font-weight: 300;
-    text-align: center;
 }
 .big {
     font-weight: 900;
@@ -114,8 +116,8 @@ h1 {
         -ms-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
 }
-#click-me a:link,
-#click-me a:visited {
+.links:link,
+.links:visited {
     text-decoration: none;
     color: #555;
     -webkit-transition: color 0.5s, -webkit-transform 0.5s;
@@ -124,9 +126,9 @@ h1 {
     transition: color 0.5s, transform 0.5s;
     transition: color 0.5s, transform 0.5s, -webkit-transform 0.5s;
 }
-#click-me a:hover,
-#click-me a:focus,
-#click-me a:active {
+.links:hover,
+.links:focus,
+.links:active {
     color: var(--light);
 }
 /*---------------------*/
@@ -202,18 +204,6 @@ h1 {
     margin-top: 22.5px;
 }
 /*---GO UP BUTTON---*/
-.go-up:link,
-.go-up:visited {
-    color: #555;
-    -webkit-transition: color 0.5s;
-    -o-transition: color 0.5s;
-    transition: color 0.5s;
-}
-.go-up:hover,
-.go-up:active,
-.go-up:focus { 
-    color: var(--light);
-}
 .go-up-location {
     position: absolute;
     bottom: 5%;
