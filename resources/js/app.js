@@ -11,7 +11,8 @@ var Calculation = (function () {
     var workerAns = new Answers(0, 0, 0);
     var crafterAns = new Answers(0, 0, 0);
 
-    var merchantEq = function (i) {
+    //Old Merchant Eq
+    /*var merchantEq = function (i) {
         var merchantReqEXP =
             3.073809219 * Math.pow(10, -12) * Math.pow(i, 8) -
             1.382695292 * Math.pow(10, -9) * Math.pow(i, 7) +
@@ -23,7 +24,8 @@ var Calculation = (function () {
             244.2821047 * i -
             147.8064184;
         return merchantReqEXP;
-    };
+    };*/
+    var merchantExpReqForLvl = [0, 113, 353, 603, 858, 1117, 1378, 1642, 1909, 2176, 2446, 2717, 2989, 3263, 3537, 3813, 4089, 4367, 4645, 4924, 5204, 5485, 5766, 6048, 6330, 6613, 6897, 7181, 7466, 7751, 8037, 8323, 8610, 8897, 9185, 9473, 9762, 10050, 10340, 10629, 10919, 11210, 11501, 11792, 12083, 12375, 12667, 12960, 13253, 13546, 13839, 14133, 14427, 14721, 15016, 15310, 15605, 15901, 16196, 16492, 16788, 17085, 17381, 17678, 17975, 18273, 18570, 18868, 19166, 19464, 19763, 20062, 20360, 20659, 20959, 21258, 21558, 21858, 22158, 22458, 22759, 23059, 23360, 23661, 23963, 24264, 24566, 24867, 25169, 25471, 25774, 26076, 26379, 26682, 26984, 27288, 27591, 27894, 28198, 28502];
     var crafterEq = function (logs) {
         var xp, epic;
         epic = 0;
@@ -55,22 +57,22 @@ var Calculation = (function () {
             13.55549276;
         return workerReqEXP;
     };*/
-    var workerExpReqForLvl = [0, 64, 157, 237, 310, 379, 445, 508, 570, 630, 688, 746, 802, 857, 912, 965, 1018, 1070, 1122, 1173, 1223, 1273, 1322, 1371, 1420, 1468, 1516, 1563, 1610, 1657, 1703, 1749, 1795, 1840, 1885, 1930, 1975, 2019, 2063, 2107, 2151, 2194, 2238, 2281, 2324, 2366, 2409, 2451, 2493, 2535, 2577, 2618, 2659, 2701, 2742, 2783, 2823, 2864, 2905, 2945, 2985, 3025, 3065, 3105, 3145, 3184, 3224, 3263, 3302, 3341, 3380, 3419, 3458, 3496, 3535, 3573, 3612, 3650, 3688, 3726, 3764, 3802, 3839, 3877, 3915, 3952, 3989, 4027, 4064, 4101, 4138, 4175, 4212, 4249, 4285, 4322, 4358, 4395, 4431, 4468]
+    var workerExpReqForLvl = [0, 64, 157, 237, 310, 379, 445, 508, 570, 630, 688, 746, 802, 857, 912, 965, 1018, 1070, 1122, 1173, 1223, 1273, 1322, 1371, 1420, 1468, 1516, 1563, 1610, 1657, 1703, 1749, 1795, 1840, 1885, 1930, 1975, 2019, 2063, 2107, 2151, 2194, 2238, 2281, 2324, 2366, 2409, 2451, 2493, 2535, 2577, 2618, 2659, 2701, 2742, 2783, 2823, 2864, 2905, 2945, 2985, 3025, 3065, 3105, 3145, 3184, 3224, 3263, 3302, 3341, 3380, 3419, 3458, 3496, 3535, 3573, 3612, 3650, 3688, 3726, 3764, 3802, 3839, 3877, 3915, 3952, 3989, 4027, 4064, 4101, 4138, 4175, 4212, 4249, 4285, 4322, 4358, 4395, 4431, 4468];
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
             var resourcesExp, totalExp, remainingExp;
             resourcesExp = resources / 5;
             totalExp = resourcesExp + exp;
-            remainingExp = totalExp - merchantEq(lvl);
+            remainingExp = totalExp - merchantExpReqForLvl[lvl];
             while (remainingExp > 0 && lvl < 100) {
                 lvl++;
-                remainingExp -= merchantEq(lvl);
+                remainingExp -= merchantExpReqForLvl[lvl];
             }
-            remainingExp += merchantEq(lvl);
+            remainingExp += merchantExpReqForLvl[lvl];
             merchantAns.lvl = lvl;
             merchantAns.exp = Math.round(remainingExp);
-            merchantAns.maxExp = Math.round(merchantEq(lvl));
+            merchantAns.maxExp = merchantExpReqForLvl[lvl];
         },
         crafterCalc: function (lvl, exp, resources) {
             var resourcesExp, maxExpReqForLvl, remainingExpToLvlUp;
