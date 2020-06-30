@@ -208,7 +208,7 @@ var UIController = (function (calcs) {
         },
         displayAns: function (type, input) {
             var answers = calcs.getAnswers();
-            if (input.lvl > 0 && input.resources > 0 && input.lvl < 100) {
+            if (input.lvl > 0 && input.resources > 0 && input.lvl < 100 && input.exp < calcs.expReqForLvl[type][input.lvl]) {
                 if (answers[type].lvl === 100) {
                     if (type === DOMStrings.type[0]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>';
