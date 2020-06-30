@@ -107,16 +107,22 @@ var Calculation = (function () {
             crafterAns.maxExp = maxExpReqForLvl;
         },
         workerCalc: function (lvl, exp, resources) {
-            var resourcesExp, totalExp;
-            resourcesExp = resources / 151.2;
+            var resourcesExp, totalExp, remainingResources, remainingResAfer100;
+            resourcesExp = Math.floor(resources / 15120) * 100;
+            remainingResources = resources % 15120;
             totalExp = resourcesExp + exp;
             while (totalExp > workerExpReqForLvl[lvl] && lvl !== 100) {
                 totalExp -= workerExpReqForLvl[lvl];
                 lvl++;
             }
+            if (lvl === 100) {
+                remainingResAfer100 = (totalExp - totalExp % 100) * 151.2;
+                remainingResources += remainingResAfer100;
+            }
             workerAns.lvl = lvl;
-            workerAns.exp = Math.round(totalExp);
+            workerAns.exp = totalExp;
             workerAns.maxExp = workerExpReqForLvl[lvl];
+            workerAns.remainingResources = Math.round(remainingResources);
         },
         expReqForLvl: {
             merchant: merchantExpReqForLvl,
@@ -215,13 +221,13 @@ var UIController = (function (calcs) {
                     } else if (type === DOMStrings.type[1]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
                     } else if (type === DOMStrings.type[2]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + Math.floor(answers[type].exp * 151.2) + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].remainingResources + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     }
                 } else {
                     if (type === DOMStrings.type[1]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from the raw resources you have and not the 10% crafter proc so you will definitely have higher lvl</p>';
                     } else if (type === DOMStrings.type[2]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> and your remaining logs will be <span class="big">' + answers[type].remainingResources + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     } else if (type === DOMStrings.type[0]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
                     }
