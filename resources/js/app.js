@@ -41,7 +41,8 @@ var Calculation = (function () {
         }
         return xp;
     };
-    var workerEq = function (i) {
+    //Old worker Eq
+    /*var workerEq = function (i) {
         var workerReqEXP =
             1.076878361 * Math.pow(10, -9) * Math.pow(i, 7) -
             2.321194444 * Math.pow(10, -12) * Math.pow(i, 8) -
@@ -53,7 +54,8 @@ var Calculation = (function () {
             80.80037472 * i +
             13.55549276;
         return workerReqEXP;
-    };
+    };*/
+    var workerExpReqForLvl = [0, 64, 157, 237, 310, 379, 445, 508, 570, 630, 688, 746, 802, 857, 912, 965, 1018, 1070, 1122, 1173, 1223, 1273, 1322, 1371, 1420, 1468, 1516, 1563, 1610, 1657, 1703, 1749, 1795, 1840, 1885, 1930, 1975, 2019, 2063, 2107, 2151, 2194, 2238, 2281, 2324, 2366, 2409, 2451, 2493, 2535, 2577, 2618, 2659, 2701, 2742, 2783, 2823, 2864, 2905, 2945, 2985, 3025, 3065, 3105, 3145, 3184, 3224, 3263, 3302, 3341, 3380, 3419, 3458, 3496, 3535, 3573, 3612, 3650, 3688, 3726, 3764, 3802, 3839, 3877, 3915, 3952, 3989, 4027, 4064, 4101, 4138, 4175, 4212, 4249, 4285, 4322, 4358, 4395, 4431, 4468]
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
@@ -99,13 +101,13 @@ var Calculation = (function () {
             var resourcesExp, totalExp;
             resourcesExp = resources / 151.2;
             totalExp = resourcesExp + exp;
-            while (totalExp > workerEq(lvl) && lvl !== 100) {
-                totalExp -= workerEq(lvl);
+            while (totalExp > workerExpReqForLvl[lvl] && lvl !== 100) {
+                totalExp -= workerExpReqForLvl[lvl];
                 lvl++;
             }
             workerAns.lvl = lvl;
             workerAns.exp = Math.round(totalExp);
-            workerAns.maxExp = Math.round(workerEq(lvl));
+            workerAns.maxExp = workerExpReqForLvl[lvl];
         },
         getAnswers: function () {
             return {
