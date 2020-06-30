@@ -45,16 +45,21 @@
     }
     .lvl-txt,
     .exp-txt,
-    .resources-txt {
+    .resources-txt,
+    .resources-type-txt {
         font-size: 110%;
         margin: 7px;
     }
-    .input-field{
+    .input-field,
+    .select-selected{
         font-size: 90%;
         margin: 5px;
         padding: 10px;
-
     } 
+    .select-selected {
+        margin-right: 0;
+        padding-right: 25px;
+    }
     .span-1-of-3, 
     .span-2-of-3 {
         width: 100%;

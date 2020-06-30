@@ -254,6 +254,56 @@
                         </div>
                     </section>
                 </div>
+                <div class="swiper-slide">
+                    <section class="panel" id="resources-calc-panel">
+                        <div class="row">
+                            <h2><span class="big">Apple</span> Calculator</h2>
+                        </div>
+                        <div class=" row">
+                            <div class="col span-1-of-3">
+                                <p class="resources-type-txt">Resources Type:</p>
+                            </div>
+                            <div class="col span-2-of-3">
+                                <div class="custom-select">
+                                    <select name="Resources Type" id="resources-type">
+                                        <option value="select">Select a type:</option>
+                                        <option value="a3">A1:A3 - Fish</option>
+                                        <option value="a5">A4:A5 - Apples</option>
+                                        <option value="a7">A6:A7 - Logs</option>
+                                        <option value="a8">A8 - Apples</option>
+                                        <option value="a9">A9 - Fish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col span-1-of-3">
+                                <p class="resources-txt">Current Resources:</p>
+                            </div>
+                            <div class="col span-2-of-3">
+                                <input type="number" min="1" step="1"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                    placeholder="input your current Fish or Apples amount" id="resources-resources"
+                                    class="input-field" />
+                                <p class="sub-text" id="resources__resources-old-input">&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col span-1-of-3">&nbsp;</div>
+                            <div class="col span-2-of-3">
+                                <button name="Resources Calculate" class="btn" id="resources-calc">Calculate</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="resources-answer" class="answers">
+                                <p>
+                                    Input the values in the field above to start <span class="big">calculating</span>
+                                    !!<span class="big"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
             <!-- pagination -->
             <div class="swiper-pagination"></div>

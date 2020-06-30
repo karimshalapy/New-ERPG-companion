@@ -149,7 +149,8 @@ h1 {
 }
 .lvl-txt,
 .exp-txt,
-.resources-txt {
+.resources-txt,
+.resources-type-txt {
     vertical-align: middle;
     margin: 15px;
     padding: 3.75px;
@@ -275,3 +276,61 @@ h1 {
 #choose-panel .btn:active{
     background-color: var(--light);
 }
+
+/*---DropDown Menu styling---*/
+
+/* The container must be positioned relative: */
+.custom-select {
+    position: relative;
+    width: 100%;
+  }
+  .custom-select select {
+    display: none; /*hide original SELECT element: */
+  }
+  .select-selected {
+    background-color: #f4f4f4;
+  }
+  /* Style the arrow inside the select element: */
+  .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    transform: translateY(-35%);
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #0a080b transparent transparent transparent;
+  }
+  /* Point the arrow upwards when the select box is open (active): */
+  .select-selected .select-arrow-active:after {
+    border-color: transparent transparent #0a080b transparent;
+    top: 7px;
+  }
+  /* style the items (options), including the selected item: */
+  .select-items div, 
+  .select-selected {
+    color: #0a080b;
+    padding: 15px;
+    border-radius: 3.75px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+  }
+  /* Style items (options): */
+  .select-items {
+    position: absolute;
+    background-color: #f4f4f4;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+  /* Hide the items when the select box is closed: */
+  .select-hide {
+    display: none;
+  }
+  .select-items div:hover,
+  .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
