@@ -46,10 +46,10 @@ var Calculation = (function () {
     //Making lvls Array for crafter
     var crafterExpReqForLvl = [0];
     (function () {
-        for (i = 1; i < 100; i++) {
+        for (var i = 1; i < 100; i++) {
             crafterExpReqForLvl.push((i * 200) - 100);
         }
-    })()
+    })();
     //Old worker Eq
     /*var workerEq = function (i) {
         var workerReqEXP =
@@ -170,8 +170,13 @@ var UIController = (function (calcs) {
         workerOldLvl: "worker__lvl-old-input",
         workerOldExp: "worker__exp-old-input",
         workerOldResources: "worker__resources-old-input",
-
-        type: ["merchant", "crafter", "worker"],
+        choice: "choose-panel",
+        goBack: "go-back-location",
+        merchantChoice: "merchant-start",
+        crafterChoice: "crafter-start",
+        workerChoice: "worker-start",
+        swiperNext: "swiper-button-next",
+        type: ["welcome", "merchant", "crafter", "worker"],
     };
     //Disable scroll
     // left: 37, up: 38, right: 39, down: 40,
@@ -216,19 +221,19 @@ var UIController = (function (calcs) {
             var answers = calcs.getAnswers();
             if (input.lvl > 0 && input.resources > 0 && input.lvl < 100 && input.exp < calcs.expReqForLvl[type][input.lvl]) {
                 if (answers[type].lvl === 100) {
-                    if (type === DOMStrings.type[0]) {
+                    if (type === DOMStrings.type[1]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].exp * 5 + '</span></p>';
-                    } else if (type === DOMStrings.type[1]) {
-                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
                     } else if (type === DOMStrings.type[2]) {
+                        document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span></p>';
+                    } else if (type === DOMStrings.type[3]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>You will reach <span class="big">The Max Level</span> and your remaining logs will be <span class="big">' + answers[type].remainingResources + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
                     }
                 } else {
-                    if (type === DOMStrings.type[1]) {
+                    if (type === DOMStrings.type[2]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p><p class="sub-text">P.S. this function calculates the exp gained from the raw resources you have and not the 10% crafter proc so you will definitely have higher lvl</p>';
-                    } else if (type === DOMStrings.type[2]) {
+                    } else if (type === DOMStrings.type[3]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> and your remaining logs will be <span class="big">' + answers[type].remainingResources + '</span></p><p class="sub-text">P.S. this function calculates the exp gained from Banana Pickaxe according to A11 trade rates.</p>';
-                    } else if (type === DOMStrings.type[0]) {
+                    } else if (type === DOMStrings.type[1]) {
                         document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your will be level <span class="big">' + answers[type].lvl + '</span> and your EXP will be <span class="big">' + answers[type].exp + "/" + answers[type].maxExp + '</span> EXP</p>';
                     }
                 }
@@ -248,6 +253,13 @@ var UIController = (function (calcs) {
                 current.value = "";
             });
             fieldsArr[0].focus();
+        },
+        hideGoBackBtn: function () {
+            document.getElementById(DOMStrings.goBack).classList.remove("hide");
+            document.getElementById(DOMStrings.goBack).classList.add("hide");
+        },
+        showGoBackBtn: function () {
+            document.getElementById(DOMStrings.goBack).classList.remove("hide");
         },
         disableScroll: function () {
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
@@ -281,26 +293,44 @@ var controller = (function (Calcs, UICtrl) {
                 calcPrLvl(event);
             }
         });
+        document.getElementById(DOMStrings.choice).addEventListener("click", function (event) {
+            var clicked, type;
+            clicked = event.target.id;
+            type = clicked.split("-")[0];
+            if (clicked === DOMStrings[type + "Choice"]) {
+                changeSlide(type);
+            }
+        });
+        document.getElementById(DOMStrings.goBack).addEventListener("click", goBackToChoice);
+        document.querySelector("." + DOMStrings.swiperNext).addEventListener("click", UICtrl.showGoBackBtn);
+    };
+    var changeSlide = function (type) {
+        mySwiper.slideTo(DOMStrings.type.indexOf(type));
+        UICtrl.showGoBackBtn();
+    };
+    var goBackToChoice = function () {
+        UICtrl.hideGoBackBtn();
+        mySwiper.slideTo(0);
     };
     var calcPrLvl = function (event) {
         var clicked, type, input;
         clicked = event.target.id;
         type = clicked.split("-")[0];
-        if (type === DOMStrings.type[0]) {
+        if (type === DOMStrings.type[1]) {
             //get input
             input = UICtrl.getInput(type);
             //calc merchant
             Calcs.merchantCalc(input.lvl, input.exp, input.resources);
             //display merchant
             UICtrl.displayAns(type, input);
-        } else if (type === DOMStrings.type[2]) {
+        } else if (type === DOMStrings.type[3]) {
             //get input
             input = UICtrl.getInput(type);
             //calc worker
             Calcs.workerCalc(input.lvl, input.exp, input.resources);
             //display worker
             UICtrl.displayAns(type, input);
-        } else if (type === DOMStrings.type[1]) {
+        } else if (type === DOMStrings.type[2]) {
             //get input 
             input = UICtrl.getInput(type);
             //calc crafter
@@ -313,28 +343,7 @@ var controller = (function (Calcs, UICtrl) {
     return {
         init: function () {
             console.log("App started...");
-            //swiper functions
-            var mySwiper = new Swiper('.swiper-container', {
-                // Optional parameters
-                direction: 'horizontal',
-                loop: false,
-                keyboard: {
-                    enabled: true,
-                    onlyInViewport: true,
-                },
-                simulateTouch: false,
 
-                // If we need pagination
-                pagination: {
-                    el: '.swiper-pagination',
-                },
-
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            })
             //app functions
             UICtrl.disableScroll();
             setupEventListener();
@@ -342,4 +351,27 @@ var controller = (function (Calcs, UICtrl) {
     };
 
 })(Calculation, UIController);
+
 controller.init();
+//swiper functions
+var mySwiper = new Swiper('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: false,
+    keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+    },
+    simulateTouch: false,
+
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
