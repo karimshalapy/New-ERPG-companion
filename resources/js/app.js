@@ -43,6 +43,13 @@ var Calculation = (function () {
         }
         return xp;
     };
+    //Making lvls Array for crafter
+    var crafterExpReqForLvl = [0];
+    (function () {
+        for (i = 1; i < 100; i++) {
+            crafterExpReqForLvl.push((i * 200) - 100);
+        }
+    })()
     //Old worker Eq
     /*var workerEq = function (i) {
         var workerReqEXP =
@@ -77,19 +84,19 @@ var Calculation = (function () {
         crafterCalc: function (lvl, exp, resources) {
             var resourcesExp, maxExpReqForLvl, remainingExpToLvlUp;
             resourcesExp = crafterEq(resources);
-            maxExpReqForLvl = (lvl * 200) - 100;
+            maxExpReqForLvl = crafterExpReqForLvl[lvl];
             remainingExpToLvlUp = maxExpReqForLvl - exp;
             while (resourcesExp >= remainingExpToLvlUp && lvl !== 100) {
                 if (remainingExpToLvlUp < maxExpReqForLvl) {
-                    maxExpReqForLvl = lvl * 200 - 100;
+                    maxExpReqForLvl = crafterExpReqForLvl[lvl];
                     remainingExpToLvlUp = maxExpReqForLvl - exp;
                     resourcesExp -= remainingExpToLvlUp;
                     lvl++;
                     exp = 0;
-                    maxExpReqForLvl = lvl * 200 - 100;
+                    maxExpReqForLvl = crafterExpReqForLvl[lvl];
                     remainingExpToLvlUp = maxExpReqForLvl - exp;
                 } else {
-                    maxExpReqForLvl = lvl * 200 - 100;
+                    maxExpReqForLvl = crafterExpReqForLvl[lvl];
                     remainingExpToLvlUp = maxExpReqForLvl - exp;
                     resourcesExp -= remainingExpToLvlUp;
                     lvl++;
@@ -110,6 +117,11 @@ var Calculation = (function () {
             workerAns.lvl = lvl;
             workerAns.exp = Math.round(totalExp);
             workerAns.maxExp = workerExpReqForLvl[lvl];
+        },
+        expReqForLvl: {
+            merchant: merchantExpReqForLvl,
+            worker: workerExpReqForLvl,
+            crafter: crafterExpReqForLvl,
         },
         getAnswers: function () {
             return {
