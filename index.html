@@ -54,6 +54,27 @@
             <div class="swiper-wrapper">
                 <!-- Slides -->
                 <div class="swiper-slide">
+                    <section id="choose-panel" class="panel">
+                        <div class="row">
+                            <h2>Choose a <span class="big">Profession</span></h2>
+                        </div>
+                        <div class="row centered">
+                            <div class="col span-1-of-3">
+                                <button name="Merchant Start" class="btn" id="merchant-start">Merchant
+                                    Profession</button>
+                            </div>
+                            <div class="col span-1-of-3">
+                                <button name="Crafter Start" class="btn" id="crafter-start">Crafter
+                                    Profession</button>
+                            </div>
+                            <div class="col span-1-of-3">
+                                <button name="Worker Start" class="btn" id="worker-start">Worker
+                                    Profession</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="swiper-slide">
                     <section id="merchant-panel" class="panel">
                         <div class="row">
                             <h2><span class="big">Merchant</span> Profession</h2>
@@ -244,32 +265,12 @@
         <div class="go-up-location">
             <a href="#welcome" class="links"><i class="fas fa-angle-double-up fa-3x"></i></a>
         </div>
+        <div class="go-back-location">
+            <a href="" class="links hide"><i class="fas fa-angle-double-left fa-3x"></i></a>
+        </div>
     </section>
     <script src="https://kit.fontawesome.com/96b8508211.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/js/swiper.js"></script>
-    <script>
-        var mySwiper = new Swiper('.swiper-container', {
-            // Optional parameters
-            direction: 'horizontal',
-            loop: false,
-            keyboard: {
-                enabled: true,
-                onlyInViewport: true,
-            },
-            simulateTouch: false,
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        })
-    </script>
     <script src="resources/js/app.js"></script>
 </body>
 

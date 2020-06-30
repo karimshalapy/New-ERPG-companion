@@ -313,6 +313,29 @@ var controller = (function (Calcs, UICtrl) {
     return {
         init: function () {
             console.log("App started...");
+            //swiper functions
+            var mySwiper = new Swiper('.swiper-container', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: false,
+                keyboard: {
+                    enabled: true,
+                    onlyInViewport: true,
+                },
+                simulateTouch: false,
+
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            })
+            //app functions
             UICtrl.disableScroll();
             setupEventListener();
         }

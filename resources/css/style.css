@@ -53,6 +53,9 @@ html {
     display: table;
     clear: both;
 }
+.hide {
+    display: none;
+}
 /*---------------------*/
 /*---SWIPER---*/
 /*---------------------*/
@@ -225,4 +228,37 @@ h1 {
     -webkit-transform: translate(0, 0);
         -ms-transform: translate(0, 0);
             transform: translate(0, 0);
+}
+/*---GO BACK BUTTON---*/
+.go-back-location {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    z-index: 999999;
+    transition: transform 0.5s, display 1s;
+    transform: translate(5%, 0);
+}
+.go-back-location:hover,
+.go-back-location:active,
+.go-back-location:focus{
+    transform: translate(0, 0);
+}
+/*---CHOICES SLIDE---*/
+#choose-panel {
+    text-align: center;
+}
+#choose-panel h2 {
+    margin-bottom: 21%;
+}
+#choose-panel .btn{
+    margin: 0;
+    padding: 15px 16%;   
+    transition: background-color 0.2s, border 0.5s;
+    font-weight: 300;
+}
+#choose-panel .btn:hover {
+    background-color: var(--dark);
+}
+#choose-panel .btn:active{
+    background-color: var(--light);
 }
