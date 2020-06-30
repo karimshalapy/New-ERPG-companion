@@ -9,7 +9,7 @@ var Calculation = (function () {
     };
     var merchantAns = new Answers(0, 0, 0);
     var workerAns = new Answers(0, 0, 0);
-    var crafterAns = new Answers(NaN, NaN, NaN);
+    var crafterAns = new Answers(0, 0, 0);
 
     var merchantEq = function (i) {
         var merchantReqEXP =
@@ -57,42 +57,42 @@ var Calculation = (function () {
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
-            var resourcesExp, totalExp, remainginExp;
+            var resourcesExp, totalExp, remainingExp;
             resourcesExp = resources / 5;
             totalExp = resourcesExp + exp;
-            remainginExp = totalExp - merchantEq(lvl);
-            while (remainginExp > 0 && lvl < 100) {
+            remainingExp = totalExp - merchantEq(lvl);
+            while (remainingExp > 0 && lvl < 100) {
                 lvl++;
-                remainginExp -= merchantEq(lvl);
+                remainingExp -= merchantEq(lvl);
             }
-            remainginExp += merchantEq(lvl);
+            remainingExp += merchantEq(lvl);
             merchantAns.lvl = lvl;
-            merchantAns.exp = Math.round(remainginExp);
+            merchantAns.exp = Math.round(remainingExp);
             merchantAns.maxExp = Math.round(merchantEq(lvl));
         },
         crafterCalc: function (lvl, exp, resources) {
-            var resourcesExp, maxExpReqForLvl, remainginExpToLvlUp;
-            resourcesExp = crafterEq(resources);//392 
-            maxExpReqForLvl = (lvl * 200) - 100; //100 
-            remainginExpToLvlUp = maxExpReqForLvl - exp; //95 
-            while (resourcesExp >= remainginExpToLvlUp && lvl !== 100) { //true
-                if (remainginExpToLvlUp < maxExpReqForLvl) { //true
+            var resourcesExp, maxExpReqForLvl, remainingExpToLvlUp;
+            resourcesExp = crafterEq(resources);
+            maxExpReqForLvl = (lvl * 200) - 100;
+            remainingExpToLvlUp = maxExpReqForLvl - exp;
+            while (resourcesExp >= remainingExpToLvlUp && lvl !== 100) {
+                if (remainingExpToLvlUp < maxExpReqForLvl) {
                     maxExpReqForLvl = lvl * 200 - 100;
-                    remainginExpToLvlUp = maxExpReqForLvl - exp;
-                    resourcesExp -= remainginExpToLvlUp; //297
-                    lvl++; //2
+                    remainingExpToLvlUp = maxExpReqForLvl - exp;
+                    resourcesExp -= remainingExpToLvlUp;
+                    lvl++;
                     exp = 0;
                     maxExpReqForLvl = lvl * 200 - 100;
-                    remainginExpToLvlUp = maxExpReqForLvl - exp;
+                    remainingExpToLvlUp = maxExpReqForLvl - exp;
                 } else {
                     maxExpReqForLvl = lvl * 200 - 100;
-                    remainginExpToLvlUp = maxExpReqForLvl - exp;
-                    resourcesExp -= remainginExpToLvlUp;
+                    remainingExpToLvlUp = maxExpReqForLvl - exp;
+                    resourcesExp -= remainingExpToLvlUp;
                     lvl++;
                 }
             }
             crafterAns.lvl = lvl;
-            crafterAns.exp = resourcesExp;
+            crafterAns.exp = exp + resourcesExp;
             crafterAns.maxExp = maxExpReqForLvl;
         },
         workerCalc: function (lvl, exp, resources) {
