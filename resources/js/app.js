@@ -72,17 +72,15 @@ var Calculation = (function () {
     //Global functions
     return {
         merchantCalc: function (lvl, exp, resources) {
-            var resourcesExp, totalExp, remainingExp;
-            resourcesExp = resources / 5;
+            var resourcesExp, totalExp;
+            resourcesExp = Math.floor(resources / 5);
             totalExp = resourcesExp + exp;
-            remainingExp = totalExp - merchantExpReqForLvl[lvl];
-            while (remainingExp > 0 && lvl < 100) {
+            while (totalExp >= merchantExpReqForLvl[lvl] && lvl < 100) {
+                totalExp -= merchantExpReqForLvl[lvl];
                 lvl++;
-                remainingExp -= merchantExpReqForLvl[lvl];
             }
-            remainingExp += merchantExpReqForLvl[lvl];
             merchantAns.lvl = lvl;
-            merchantAns.exp = Math.round(remainingExp);
+            merchantAns.exp = totalExp;
             merchantAns.maxExp = merchantExpReqForLvl[lvl];
         },
         crafterCalc: function (lvl, exp, resources) {
