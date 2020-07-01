@@ -194,14 +194,14 @@ var UIController = (function (calcs) {
         merchantChoice: "merchant-start",
         crafterChoice: "crafter-start",
         workerChoice: "worker-start",
+        resourcesChoice: "resources-start",
         swiperNext: "swiper-button-next",
-        resourcesLvl: "resources-type",
-        resourcesExp: "resources-type",
+        resourcesType: "resources-type",
         resourcesResources: "resources-resources",
         resourcesOldResources: "resources__resources-old-input",
         resourcesBtn: "resources-calc",
         resourcesAns: "resources-answer",
-        type: ["welcome", "merchant", "crafter", "worker"],
+        type: ["welcome", "merchant", "crafter", "worker", "resources"],
     };
     //Disable scroll
     // left: 37, up: 38, right: 39, down: 40,
@@ -236,10 +236,20 @@ var UIController = (function (calcs) {
             return DOMStrings;
         },
         getInput: function (type) {
+            var lvl, exp, resources, type;
+            if (DOMStrings[type + "Lvl"] && DOMStrings[type + "Exp"] && DOMStrings[type + "Resources"]) {
+                lvl = parseFloat(document.getElementById(DOMStrings[type + "Lvl"]).value);
+                exp = parseFloat(document.getElementById(DOMStrings[type + "Exp"]).value);
+                resources = parseFloat(document.getElementById(DOMStrings[type + "Resources"]).value);
+            } else if (DOMStrings[type + "Type"]) {
+                type = document.getElementById(DOMStrings[type + "Type"]).value
+                resources = parseFloat(document.getElementById(DOMStrings["resourcesResources"]).value);
+            }
             return {
-                lvl: parseFloat(document.getElementById(DOMStrings[type + "Lvl"]).value),
-                exp: parseFloat(document.getElementById(DOMStrings[type + "Exp"]).value),
-                resources: parseFloat(document.getElementById(DOMStrings[type + "Resources"]).value),
+                lvl: lvl,
+                exp: exp,
+                resources: resources,
+                type: type,
             };
         },
         displayAns: function (type, input) {
@@ -266,13 +276,20 @@ var UIController = (function (calcs) {
                 document.getElementById(DOMStrings[type + "OldLvl"]).innerText = "Old Input: " + input.lvl;
                 document.getElementById(DOMStrings[type + "OldExp"]).innerText = "Old Input: " + input.exp;
                 document.getElementById(DOMStrings[type + "OldResources"]).innerText = "Old Input: " + input.resources;
+            } else if (DOMStrings[type + "Type"] && input.resources > 0 && input.type !== "select") {
+                document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Your A10 Logs will be <span class="big">' + Math.round(answers[type].log) + '</span> or your A11 Apples will be <span class="big">' + Math.round(answers[type].apples) + '</span></p>'
+                document.getElementById(DOMStrings[type + "OldResources"]).innerText = "Old Input: " + input.resources;
             } else {
                 document.getElementById(DOMStrings[type + "Ans"]).innerHTML = '<p>Please, input <span class="big"> proper values</span>!!</p>';
             }
         },
         clearFields: function (type) {
             var fields, fieldsArr;
-            fields = document.querySelectorAll("#" + DOMStrings[type + "Lvl"] + ", " + "#" + DOMStrings[type + "Exp"] + ", " + "#" + DOMStrings[type + "Resources"]);
+            if (DOMStrings[type + "Lvl"] && DOMStrings[type + "Exp"] && DOMStrings[type + "Resources"]) {
+                fields = document.querySelectorAll("#" + DOMStrings[type + "Lvl"] + ", " + "#" + DOMStrings[type + "Exp"] + ", " + "#" + DOMStrings[type + "Resources"]);
+            } else if (DOMStrings[type + "Type"]) {
+                fields = document.querySelectorAll("#" + DOMStrings[type + "Resources"]);
+            }
             fieldsArr = Array.from(fields);
             fieldsArr.forEach(function (current) {
                 current.value = "";
@@ -309,7 +326,7 @@ var controller = (function (Calcs, UICtrl) {
     var setupEventListener = function () {
         document.getElementById(DOMStrings.mainPanel).addEventListener("click", function (event) {
             var clicked = event.target.id;
-            if (clicked === DOMStrings.merchantBtn || clicked === DOMStrings.crafterBtn || clicked === DOMStrings.workerBtn) {
+            if (clicked === DOMStrings.merchantBtn || clicked === DOMStrings.crafterBtn || clicked === DOMStrings.workerBtn || clicked === DOMStrings.resourcesBtn) {
                 calcPrLvl(event);
             }
         });
@@ -326,6 +343,7 @@ var controller = (function (Calcs, UICtrl) {
                 changeSlide(type);
             }
         });
+
         document.getElementById(DOMStrings.goBack).addEventListener("click", goBackToChoice);
         document.querySelector("." + DOMStrings.swiperNext).addEventListener("click", UICtrl.showGoBackBtn);
     };
@@ -341,28 +359,18 @@ var controller = (function (Calcs, UICtrl) {
         var clicked, type, input;
         clicked = event.target.id;
         type = clicked.split("-")[0];
+        input = UICtrl.getInput(type);
         if (type === DOMStrings.type[1]) {
-            //get input
-            input = UICtrl.getInput(type);
-            //calc merchant
             Calcs.merchantCalc(input.lvl, input.exp, input.resources);
-            //display merchant
-            UICtrl.displayAns(type, input);
         } else if (type === DOMStrings.type[3]) {
-            //get input
-            input = UICtrl.getInput(type);
-            //calc worker
             Calcs.workerCalc(input.lvl, input.exp, input.resources);
-            //display worker
-            UICtrl.displayAns(type, input);
         } else if (type === DOMStrings.type[2]) {
-            //get input 
-            input = UICtrl.getInput(type);
-            //calc crafter
             Calcs.crafterCalc(input.lvl, input.exp, input.resources);
-            //display crafter
-            UICtrl.displayAns(type, input);
+        } else if (type === DOMStrings.type[4]) {
+            Calcs.resourcesCalc(input.type, input.resources);
+            console.log(clicked, type)
         }
+        UICtrl.displayAns(type, input);
         UICtrl.clearFields(type);
     };
     return {
@@ -378,6 +386,7 @@ var controller = (function (Calcs, UICtrl) {
 })(Calculation, UIController);
 
 controller.init();
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //swiper functions
 var mySwiper = new Swiper('.swiper-container', {
     // Optional parameters
